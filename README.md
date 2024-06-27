@@ -121,6 +121,10 @@ query GetProduct($id: ID!) {
 }
 ```
 
+## Video
+
+[Video of Project](https://youtu.be/rg099nvqpBw?si=jUkESv8VaHVXqY2Q)
+
 ## Folder Structure
 
 ```
