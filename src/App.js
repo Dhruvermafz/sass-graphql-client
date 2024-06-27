@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import ProductList from "./components/ProductList";
+import ProductDetail from "./components/ProductDetail";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// Set up Apollo Client
+const client = new ApolloClient({
+  uri: "http://127.0.0.1:8000/graphql/",
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <div className="container mt-5">
+          <Routes>
+            <Route exact path="/" element={<ProductList />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+          </Routes>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 
