@@ -1,5 +1,7 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
+import { Link } from "react-router-dom";
+import { Table, Spinner, Alert } from "react-bootstrap";
 
 const GET_PRODUCTS = gql`
   query GetProducts {
@@ -11,13 +13,15 @@ const GET_PRODUCTS = gql`
     }
   }
 `;
-const ProductList = () => {
+
+function ProductList() {
   const { loading, error, data } = useQuery(GET_PRODUCTS);
 
-  if (loading) return <p>Loading..</p>;
-  if (error) return <p>Error: </p>;
+  if (loading) return <Spinner animation="border" />;
+  if (error) return <Alert variant="danger">Error: {error.message}</Alert>;
+
   return (
-    <table>
+    <Table striped bordered hover>
       <thead>
         <tr>
           <th>Name</th>
@@ -26,16 +30,18 @@ const ProductList = () => {
         </tr>
       </thead>
       <tbody>
-        {data.allProducts.map(({ id, name, price, stock }) => (
-          <tr key={id}>
-            <td>{name}</td>
-            <td>{price}</td>
-            <td>{stock}</td>
+        {data.allProducts.map((product) => (
+          <tr key={product.id}>
+            <td>
+              <Link to={`/product/${product.id}`}>{product.name}</Link>
+            </td>
+            <td>{product.price}</td>
+            <td>{product.stock}</td>
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
-};
+}
 
 export default ProductList;

@@ -1,70 +1,157 @@
-# Getting Started with Create React App
+# Full Stack Developer Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a full-stack application developed using Django for the backend and React for the frontend. The backend exposes data via a GraphQL API, and the frontend fetches and displays this data using Apollo Client. The goal is to create a product list and detail page, demonstrating skills in both front-end and back-end development.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup Instructions](#setup-instructions)
+- [Usage](#usage)
+- [GraphQL Queries](#graphql-queries)
+- [Folder Structure](#folder-structure)
+- [Contact](#contact)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Backend**: Django with a Product model, populated with sample data.
+- **GraphQL**: Expose product data via a GraphQL API.
+- **Frontend**: React application using Apollo Client to fetch data from the GraphQL API.
+- **Styling**: Integrated with React Bootstrap for responsive and user-friendly UI.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- **Backend**: Django, Graphene-Django, SQLite
+- **Frontend**: React, Apollo Client, React Bootstrap
+- **Others**: CORS Headers
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Instructions
 
-### `npm run build`
+### Backend Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/your-username/full-stack-assignment.git
+   cd full-stack-assignment/backend
+   ```
+2. **Create a virtual environment**:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. **Install dependencies**:
 
-### `npm run eject`
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Create and apply migrations**:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+5. **Populate the database with sample data**:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   python manage.py create_sample_data
+   ```
+6. **Run the server**:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   python manage.py runserver
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Frontend Setup
 
-## Learn More
+1. **Navigate to the frontend directory**:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   cd ../frontend
+   ```
+2. **Install dependencies**:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   npm install
+   ```
+3. **Run the React application**:
 
-### Code Splitting
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Usage
 
-### Analyzing the Bundle Size
+1. **Access the frontend**: Open your browser and go to `http://localhost:3000`.
+2. **Product List**: The home page will display a list of products with their name, price, and stock.
+3. **Product Detail**: Click on a product name to view detailed information about that product.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## GraphQL Queries
 
-### Making a Progressive Web App
+### Fetch All Products
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```graphql
+query {
+  allProducts {
+    id
+    name
+    description
+    price
+    stock
+    created_at
+    updated_at
+  }
+}
+```
 
-### Advanced Configuration
+### Fetch a Single Product by ID
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```graphql
+query GetProduct($id: ID!) {
+  product(id: $id) {
+    id
+    name
+    description
+    price
+    stock
+    created_at
+    updated_at
+  }
+}
+```
 
-### Deployment
+## Folder Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+full-stack-assignment/
+├── backend/
+│   ├── manage.py
+│   ├── db.sqlite3
+│   ├── backend/
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── wsgi.py
+│   └── products/
+│       ├── migrations/
+│       ├── __init__.py
+│       ├── admin.py
+│       ├── apps.py
+│       ├── models.py
+│       ├── schema.py
+│       └── management/
+│           └── commands/
+│               └── create_sample_data.py
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ProductList.js
+│   │   │   └── ProductDetail.js
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── ...
+└── README.md
+```
