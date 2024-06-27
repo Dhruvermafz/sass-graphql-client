@@ -32,7 +32,7 @@ This project is a full-stack application developed using Django for the backend 
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/full-stack-assignment.git
+   git clone https://github.com/Dhruvermafz/sass-graphql-client.git
    cd full-stack-assignment/backend
    ```
 2. **Create a virtual environment**:
